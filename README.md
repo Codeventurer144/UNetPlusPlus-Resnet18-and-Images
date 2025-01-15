@@ -1,4 +1,4 @@
-# Deep and Transfer Learning using ResNet-18 and U-Net++
+# Transfer Learning using ResNet-18 and U-Net++
 
 ## Description:
 
