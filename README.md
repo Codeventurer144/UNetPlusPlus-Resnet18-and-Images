@@ -60,6 +60,16 @@ Each of the .py or Python script files below were run in the terminal using the 
 python name_of_script.py
 ```
 
+Below are the files I used in the order I ran them in the terminal
+
+- `requirements.py`📁 - This contains all the versions of the libraries used. warning: do not run this on your local system if you already have the libraries on your system. This is so that you will not have the problem of different library versions clashing together, and you needing to manually delete them. Better still, just run this on a cloud platform like Github codespaces or others like Google Colabs. alternatively, you can individually install the versions on your local computer and make sure an...
+
+```bash
+  "ERROR: Ignored the following versions of packages due to dependency conflicts:
+<package-name> ... is ignoring these packages.."
+```
+
+Is dealt with.
 
 - `preprocess_dsb2018.py`📁 - This script processes the image and mask data from the provided dataset, preparing them for training the model. It loads images and associated mask data, resizes them to a specified size, converts mask images to binary format where mask pixels are marked as 1 and the rest as 0, and saves the processed images and masks into organized directories, ready for model input. It changes the structure of the dataset from this:
 
@@ -130,7 +140,9 @@ c. **Item Retrieval (`__getitem__`)**:
 - `metrics.py`📁 - This Python file defines two functions—`iou_score` and `dice_coef`—which are commonly used for evaluating the performance of models in tasks like semantic segmentation, where the goal is to predict a masks of each pixel that represent a particular class.
 
 - `losses.py`📁 - This Python file defines two customized loss functions (`BCEDiceLoss` and `LovaszHingeLoss`) used in training deep learning models, particularly for tasks like image segmentation. The loss functions combine different components to improve model performance.
+
   a. `BCEDiceLoss` - Combines Binary Cross Entropy (BCE) and Dice Loss. BCE is used for binary classification problems; comparing the predicted logits (input) with the true labels (target) while the Dice Loss calculates the *Dice Coefficient*, which measures the overlap between the predicted and actual values penalizing small overlaps and promoting better predictions.
+  
   b. `LovaszHingeLoss` - This loss uses Lovasz Hinge Loss, which is a loss function designed for the Lovasz-Softmax optimization method. It is often used in segmentation tasks with unbalanced classes. Imagine a segmentation task where you want to classify each pixel in an image as either "foreground" (the object of interest) or "background". If the object of interest only occupies a small part of the image, you might have many more background pixels than foreground pixels. In such cases, the background class is overrepresented compared to the foreground class. This is the common situation of real-world image datasets; they possess unbalanced classes.
 
 - `utils.py`📁 - This contains three functions:
@@ -141,11 +153,10 @@ c. **Item Retrieval (`__getitem__`)**:
   
     c. AverageMeter is used to track and calculate running averages of values, such as loss or accuracy, during training.
 
-- `train.py`📁 - This script trains and validates a deep learning model for image segmentation (In this case U-Net++), allowing configuration of model architecture, loss functions, optimizer, and data augmentation. It splits the dataset into training and validation sets, trains the model, tracks performance metrics (loss and IoU), and saves the best model based on validation performance. It also supports early stopping and learning rate scheduling.
+- `archs.py`📁 - Contains the Architechture for the Unet and NestedUnet, built with VGG blocks(2 convolutional layers, batch norm, and ReLu activation)
 
-- `requirements.py`📁 - This contains all the versions of the libraries used. warning: do not run this on your local system if you already have the libraries on your system. This is so that you will not have the problem of different library versions clashing together, and you needing to manually delete them. Better still, just run this on a cloud platform like Github codespaces or others like Google Colabs. alternatively, you can individually install the versions on your local computer and make sure an
+- `train.py`📁 - This script trains and validates a deep learning model for image segmentation (In this case U-Net++), allowing configuration of model architecture, loss functions, optimizer, and data augmentation. It splits the dataset into training and validation sets, trains the model, tracks performance metrics (loss and IoU), and saves the best model based on validation performance. It also supports early stopping and learning rate scheduling. **NOTE**: the number of epochs is set to 1 and the deep supervision to False, you might want to change this along with other parameters.
 
-"ERROR: Ignored the following versions of packages due to dependency conflicts:
-<package-name> ... is ignoring these packages.."
+- `val.py`📁 - This is for model evaluation and inference after the model has been trained. It loads the saved model weights from models/%s/model.pth (which were saved in the train.py script. It then performs validation or inference using the trained model on the validation set and calculates the IoU score. It also saves the model's output for each class, This script expects the model to be already trained and saved by the first script before it can perform inference.
 
-Is dealt with.
+
