@@ -143,8 +143,9 @@ c. **Item Retrieval (`__getitem__`)**:
 
 - `train.py`📁 - This script trains and validates a deep learning model for image segmentation (In this case U-Net++), allowing configuration of model architecture, loss functions, optimizer, and data augmentation. It splits the dataset into training and validation sets, trains the model, tracks performance metrics (loss and IoU), and saves the best model based on validation performance. It also supports early stopping and learning rate scheduling.
 
+- `requirements.py`📁 - This contains all the versions of the libraries used. warning: do not run this on your local system if you already have the libraries on your system. This is so that you will not have the problem of different library versions clashing together, and you needing to manually delete them. Better still, just run this on a cloud platform like Github codespaces or others like Google Colabs. alternatively, you can individually install the versions on your local computer and make sure an
 
+"ERROR: Ignored the following versions of packages due to dependency conflicts:
+<package-name> ... is ignoring these packages.."
 
------------------------
-
-Currently, I am learning about the **U-Net++ architecture**—an evolution from the **U-Net**—which introduces **dense skip pathways** between the encoder and decoder blocks. These dense skip connections significantly improve **feature propagation**, enhance **gradient flow**, and allow for the capture of more **fine-grained details** in the segmentation output. Unlike U-Net, **U-Net++** creates a series of **nested skip connections** at each level, bridging the encoder and decoder at multiple levels. This design ensures that the decoder receives rich features from multiple encoder layers, helping to improve **localization accuracy** and **contextual information** during the image segmentation process.
+Is dealt with.
