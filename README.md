@@ -1,6 +1,6 @@
 # ResNet-18 and U-Net++
 <details>
-  <summary>Click to view/unview U-Net Architecture</summary>
+  <summary>Click to view/unview U-Net++ Architecture</summary>
    
   ![](U-Net.jpg)
 </details>
