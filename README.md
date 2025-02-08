@@ -61,7 +61,42 @@ python name_of_script.py
 ```
 
 
-- `preprocess_dsb2018.py`📁 - This script processes the image and mask data from the provided dataset, preparing them for training the model. It loads images and associated mask data, resizes them to a specified size, converts mask images to binary format where mask pixels are marked as 1 and the rest as 0, and saves the processed images and masks into organized directories, ready for model input.
+- `preprocess_dsb2018.py`📁 - This script processes the image and mask data from the provided dataset, preparing them for training the model. It loads images and associated mask data, resizes them to a specified size, converts mask images to binary format where mask pixels are marked as 1 and the rest as 0, and saves the processed images and masks into organized directories, ready for model input. It changes the structure of the dataset from this:
+
+inputs
+└── data-science-bowl-2018
+    ├── stage1_train
+    |   ├── 00ae65...
+    │   │   ├── images
+    │   │   │   └── 00ae65...
+    │   │   └── masks
+    │   │       └── 00ae65...            
+    │   ├── ...
+    |
+    ...
+
+To This:
+
+inputs
+└── <dataset name>
+    ├── images
+    |   ├── 0a7e06.jpg
+    │   ├── 0aab0a.jpg
+    │   ├── 0b1761.jpg
+    │   ├── ...
+    |
+    └── masks
+        ├── 0
+        |   ├── 0a7e06.png
+        |   ├── 0aab0a.png
+        |   ├── 0b1761.png
+        |   ├── ...
+        |
+        └── 1
+            ├── 0a7e06.png
+            ├── 0aab0a.png
+            ├── 0b1761.png
+            ├── ...
 
 - `dataset.py`📁- This script defined a custom dataset class for PyTorch to use which was intended to handle image and mask pairs for tasks like image segmentation. Here's a brief breakdown of what it does:
 
