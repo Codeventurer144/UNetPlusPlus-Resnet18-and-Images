@@ -133,7 +133,13 @@ c. **Item Retrieval (`__getitem__`)**:
   a. `BCEDiceLoss` - Combines Binary Cross Entropy (BCE) and Dice Loss. BCE is used for binary classification problems; comparing the predicted logits (input) with the true labels (target) while the Dice Loss calculates the *Dice Coefficient*, which measures the overlap between the predicted and actual values penalizing small overlaps and promoting better predictions.
   b. `LovaszHingeLoss` - This loss uses Lovasz Hinge Loss, which is a loss function designed for the Lovasz-Softmax optimization method. It is often used in segmentation tasks with unbalanced classes. Imagine a segmentation task where you want to classify each pixel in an image as either "foreground" (the object of interest) or "background". If the object of interest only occupies a small part of the image, you might have many more background pixels than foreground pixels. In such cases, the background class is overrepresented compared to the foreground class. This is the common situation of real-world image datasets; they possess unbalanced classes.
 
+- `utils.py`📁 - This contains three functions:
+
+    a. str2bool converts strings to boolean values.
   
+    b. count_params counts the trainable parameters in a model.
+  
+    c. AverageMeter is used to track and calculate running averages of values, such as loss or accuracy, during training.
 
 - `train.py`📁 - This script trains and validates a deep learning model for image segmentation (In this case U-Net++), allowing configuration of model architecture, loss functions, optimizer, and data augmentation. It splits the dataset into training and validation sets, trains the model, tracks performance metrics (loss and IoU), and saves the best model based on validation performance. It also supports early stopping and learning rate scheduling.
 
