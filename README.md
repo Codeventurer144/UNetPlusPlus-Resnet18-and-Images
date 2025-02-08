@@ -13,9 +13,53 @@
 
 ## Description:
 
-🟢 In this pytorch project, I used performed **transfer learning** on an **Ants and Bees dataset**  making use of **ResNet-18**. I also trained a **U-Net++** for **image segmentation**. For the Resnet-18 Model, I used **torchvision.transforms**, I applied different **image augmentation techniques** and normalized the images using their **mean** and **standard deviation**. I defined a custom function, **def** `train_model()`, to streamline the model training process and to facilitate the usage of the **ResNet-18 architecture** for both **forward propagation** and **backpropagation**, as well as calculating and monitoring its  **loss function and accuracy**. The **classification accuracy** achieved with the **ResNet-18** model was **94%**.
+🟢 In this pytorch project, I performed **transfer learning** on an **Ants and Bees dataset**  making use of **ResNet-18**. I also trained an image segmentation model using the **U-Net++** architecture. For the Resnet-18 Model, I used **torchvision.transforms**, I applied different **image augmentation techniques** and normalized the images using their **mean** and **standard deviation**. I defined a custom function, **def** `train_model()`, to streamline the model training process and to facilitate the usage of the **ResNet-18 architecture** for both **forward propagation** and **backpropagation**, as well as calculating and monitoring its  **loss function and accuracy**. The **classification accuracy** achieved with the **ResNet-18** model was **94%**.
 
-🔵 As for U-net++, which is my focus in this repository, I encountered several Issues such as the kind of U-net++ Architecture I was using, the incompatibility of Libraries, the still-unknown reasons for it not running on my Laptop but on github codespaces😅, and Skip connections receiving different dimensions of inputs than they expected. Thanfully, I found [a repository on github](https://github.com/4uiiurz1/pytorch-nested-unet) that helped me to a great extent (though I still needed to do some debugging) to train the model.
+🔵 As for U-net++, which is my focus in this repository, I encountered several Issues such as the kind of U-net++ Architecture I was using, the incompatibility of Libraries, the still-unknown reasons for it not running on my Laptop but on github codespaces😅, and Skip connections receiving different dimensions of inputs than they expected. Thankfully, I found [a repository on github](https://github.com/4uiiurz1/pytorch-nested-unet) that helped me to a great extent (though I still needed to do some debugging and recoding) to train the model.
+
+## What is U-Net++ and how does it work?
+
+### What is it?
+
+![image](unetandPlusPlus.jpg)
+
+U-Net++ (U-Net Plus Plus) is an extension of the original U-Net architecture, designed to improve segmentation tasks. It enhances U-Net by adding nested skip pathways and deep supervision. This architecture helps to better capture fine-grained features and improves the accuracy of segmentation, especially in complex images. The nested skip pathways allow better gradient flow and more precise information exchange between layers.
+
+### How Does It work?
+
+#### Images and Masks
+
+For Image segmentation tasks, where we are basically teaching the model to recognize a particular object(the foreground) amidst other objects(the background)...
+
+we need a dataset with images and their masks.
+
+IMAGE EXAMPLE
+
+![image](image.png)
+
+MASK EXAMPLE
+
+![image](masks.png)
+
+In the [Dataset I used](https://www.kaggle.com/c/data-science-bowl-2018/data) for the segmentation task, the images and their various masks needed to be organized in a particular folder structure for the model.
+
+#### Encoder ➡️ Decoder
+
+After we have our image and masks we write a ton of code to pass each image through the encoder, skip pathways, and the decoder of the Nested U-Net(U-Net++). 
+
+![image](unetandPlusPlus.jpg)
+
+![image](WINWORD_GLSkUk1UIA.png)
+
+In the Image above each circle can be seen as level. Each level consists of two 3x3 convolutional layers each followed by a Relu activation unit. The transition to the next layer is handled by a 2x2 max-pooling unit with a stride of 2 for downsampling. The image becomes half its size as it goes from level to level in the encoder but the number of channels double. This is similar to saying that the U-net++ architecure tries to "zoom into" each image to understand its pixel-wise details. This only makes the model understand the components/the "what" of the pixels). The decoder learns the "where" of the foreground. The final image size is predicted and compared with the original mask to calculate the loss, and a backward propagation is carried out to adjust the models weights through an ADAM or Stochastic Gradient Descent Optimizer.
+
+## Now to the CODE!
+Each of the .py or Python script files below were run in the terminal using the simple command
+
+```bash
+python name_of_script.py
+```
+
 
 - `preprocess_dsb2018.py`📁 - This script processes the image and mask data from the provided dataset, preparing them for training the model. It loads images and associated mask data, resizes them to a specified size, converts mask images to binary format where mask pixels are marked as 1 and the rest as 0, and saves the processed images and masks into organized directories, ready for model input.
 
