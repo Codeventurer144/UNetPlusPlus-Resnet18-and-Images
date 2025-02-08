@@ -135,7 +135,7 @@ c. **Item Retrieval (`__getitem__`)**:
 
 - `utils.py`📁 - This contains three functions:
 
-    a. str2bool converts strings to boolean values.
+    a. str2bool converts strings to boolean values. Because arguments are usually passed into the terminal as strings ('True' is a string until you convert it into a boolean.)
   
     b. count_params counts the trainable parameters in a model.
   
